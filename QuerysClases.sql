@@ -230,3 +230,5 @@ select sum(ventas) from oficinas
 --where region = 'este'
 --group by region
 having sum(ventas) > 2000000
+
+-- Kimberly esta viendo
