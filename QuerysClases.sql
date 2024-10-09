@@ -231,4 +231,8 @@ select sum(ventas) from oficinas
 --group by region
 having sum(ventas) > 2000000
 
--- Kimberly esta viendo
+-- Clase conexión con VS 2022
+select * from oficinas
+
+INSERT INTO oficinas(oficina, ciudad, region, dir)
+VALUES(30, 'Misantla', 'Centro', 108);
