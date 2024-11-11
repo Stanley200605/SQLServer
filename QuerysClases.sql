@@ -234,5 +234,23 @@ having sum(ventas) > 2000000
 -- Clase conexión con VS 2022
 select * from oficinas
 
-INSERT INTO oficinas(oficina, ciudad, region, dir)
-VALUES(30, 'Misantla', 'Centro', 108);
+INSERT INTO oficinas(oficina, ciudad, region, dir) VALUES(30, 'Misantla', 'Centro', 108);
+
+-- Clase 11-Nov-2024
+-- Transacciones
+BEGIN TRAN
+SET NOCOUNT ON; -- Sirve para que no mande los mensajes de las filas afectadas
+BEGIN TRY -- Funciona como el Try-Catch, si llega a fallar algo lo podemos cachar
+UPDATE oficinas SET ventas = 1000001 WHERE oficina = 28
+INSERT INTO oficinas VALUES (202, 'Misantla', 'Centro', null, 0, 0)
+COMMIT TRAN -- El commit lo compromete
+
+END TRY
+BEGIN CATCH -- Si pasa algun error se pasa al Catch
+	SELECT
+		-- Voy a sacar el numero del error y se llamará ErrorNumber y sacaré el mensaje del error como ErrorMessage y lo mostrará
+		ERROR_NUMBER() AS ErrorNumber,
+		ERROR_MESSAGE() AS ErrorMessage,
+		@@ERROR
+		ROLLBACK TRAN
+END CATCH
