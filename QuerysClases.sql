@@ -254,3 +254,15 @@ BEGIN CATCH -- Si pasa algun error se pasa al Catch
 		@@ERROR
 		ROLLBACK TRAN
 END CATCH
+
+-- Otro ejemplo
+BEGIN TRANSACTION
+
+delete from oficinas -- Al eliminar información
+
+select * from oficinas
+INSERT INTO OFICINAS VALUES(32, 'Misantla', 'Centro', null);
+
+rollback transaction -- Lo podemos recuperar con este comando, sin embargo, tiene que estar en el Transaction
+
+commit
