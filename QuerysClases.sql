@@ -266,3 +266,40 @@ INSERT INTO OFICINAS VALUES(32, 'Misantla', 'Centro', null);
 rollback transaction -- Lo podemos recuperar con este comando, sin embargo, tiene que estar en el Transaction
 
 commit
+
+-- Clase 13/11/2024
+-- Creación de usuario para la base de datos Pedidos
+CREATE LOGIN ADHOC  WITH PASSWORD = '123'
+USE PEDIDOS
+CREATE USER ADHOC FOR LOGIN ADHOC
+
+-- Asignar permisos
+GRANT SELECT, INSERT, DELETE, UPDATE
+ON Pedidos
+TO USUARIOPP
+
+-- Los usuarios de cuentas deben poder recuperar los datos de los clientes
+-- Y añadir cliente nuevos a la tabla clientes.
+GRANT SELECT, INSERT
+ON CLIENTES
+TO USUARIOCU
+
+-- ASIGNAR TODOS LOS PRIVILEGIOS
+-- GRANT ALL PRIVILEGES o también puede ser GRANT SELECT, INSERT, UPDATE, DELETE 
+-- ON REPRESENTANTES
+-- TO SAMUEL
+
+-- ASIGNAR PERMISOS A TODOS
+GRANT SELECT
+ON Oficinas
+TO PUBLIC
+
+-- ASGINAR PERMISOS EN ALGUNAS COLUMNAS
+GRANT UPDATE(COLUMNA1, COLUMNA2)
+ON CLIENTES
+TO USUARIOPP
+
+-- Estructura del GRANT ON TO
+-- GRANT CONSULTA(COLUMNAS)
+-- ON TABLA
+-- TO USUARIO
