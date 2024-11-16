@@ -303,3 +303,74 @@ TO USUARIOPP
 -- GRANT CONSULTA(COLUMNAS)
 -- ON TABLA
 -- TO USUARIO
+
+
+-- Clase 14/11/2024
+-- Revocar permisos
+-- Se quita permisos con el REVOKE, y podemos quitar solo unos cuantos permisos de los ya asignados
+
+-- Ejemplo se conceder permisos
+GRANT SELECT, INSERT, UPDATE
+ON REPRESENTANTES -- Solo se puede hacer un otorgamiento de permisos en una sola tabla, para hacer en más tablas será en otro GRANT ON TO
+TO USUARIOCU, USUARIOPP
+
+-- Revocar permisos
+REVOKE INSERT, UPDATE
+ON REPRESENTANTES
+FROM USUARIOPP
+-- Termina teniendo slo permisos en SELECT
+
+-- REVOKE ALL PRILIVEGES(INSERT, UPDATE, SELECT, DELETE)
+-- ON OFICINAS
+-- FROM USUARIOCU
+
+-- TRANSMISION DE PRIVILEGIOS (GRANT OPTION)
+-- ESTRUCTURA
+GRANT SELECT
+ON REPOESTE
+TO LEON
+WITH GRANT OPTION
+-- CON EL WITH GRANT SE LE DA EL PRIVILEGIO DE OTORGAR PRIVILEGIOS
+
+-- Actividad, agregar permisos a ADHOC
+GRANT SELECT
+ON Oficinas
+TO ADHOC
+
+-- Quitar permisos
+REVOKE SELECT
+ON Oficinas
+TO ADHOC, borrame
+
+-- USANDO EL WITH GRANT
+GRANT SELECT
+ON Oficinas
+TO ADHOC
+WITH GRANT OPTION
+
+-- QUITAR WITH GRANT
+REVOKE SELECT
+ON Oficinas
+TO ADHOC
+-- Manda error porque hay que agregar el CASCADE
+CASCADE
+
+REVOKE SELECT
+ON oficinas
+TO ADHOC, Borrame
+
+-- DEFINIR VISTAS
+-- Tabla virtual que contiene una consulta de SQL
+CREATE VIEW vista_oficina
+AS 
+SELECT * FROM Oficinas
+-- Se pueden poner alias a las columnas desde la primera linea
+-- Pero es mas recomendado hacerlo en la instrucción que realizará
+-- Select * AS From Oficinas
+
+
+-- Se manda a llamar la vista desde un select
+-- Una vista igual puede hacer SELECT INSERT, UPDATE, DELETE
+-- Se respeta la integridad
+-- 
+select * from vista_oficina
