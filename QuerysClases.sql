@@ -374,3 +374,60 @@ SELECT * FROM Oficinas
 -- Se respeta la integridad
 -- 
 select * from vista_oficina
+
+-- Clase 20/11/2024
+--Procedimientos almacenados--
+create procedure consultas_oficinas
+as
+begin 
+select * from oficinas
+end
+
+--Para ejecutarlo es de la siguiente forma--
+--es recomendable hacerlo desde otro Query
+execute consultas_oficinas
+
+
+create procedure suma 
+@num1 int, 
+@num2 int
+as
+begin 
+select @num1+@num2 as Suma
+end 
+
+--la abreviacion de execute
+exec suma 3,5
+
+--inserta laas oficinas, pone las mismas variables que contiene la tabla y despues le pione un insert into para poder agregar 
+--los datos que se necesitan en dicha tabla. 
+create procedure insertar_oficinas 
+@oficina int,  
+@ciudad varchar(15), 
+@region varchar(10), 
+@director int, 
+@objetivo money, 
+@ventas money
+as
+begin 
+insert into oficinas values 
+(@oficina, @ciudad , @region , @director, @objetivo , @ventas)
+end
+
+--ahora se puede inserttar en dicho procedimiento--
+execute insertar_oficinas 33, 'Santa Clara', 'Norte', 108, 0,0
+
+delete from oficinas where oficina=33
+
+--Imaginense una transaccion dentro de dicho comando--
+
+--Procedimiento de eliminar y hay que hacer el de modificar 
+create procedure eliminar_oficinas
+@oficina int
+as
+begin 
+delete from oficinas where oficina=@oficina
+end 
+
+execute eliminar_oficinas 33
+--esto es mas sencillo de eliminar oficinas sin necesidad de where 
