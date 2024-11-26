@@ -431,3 +431,25 @@ end
 
 execute eliminar_oficinas 33
 --esto es mas sencillo de eliminar oficinas sin necesidad de where 
+
+-- Clase 25/11/2024
+-- Triggers
+--DECLARACIÓN DE VARIABLE
+declare @nombre varchar(15)
+
+--ASIGNAR UNA CONSULTA COMO VALOR A LA VARIABLE FORMA 1
+set @nombre= (select ciudad from oficinas where oficina=11)
+--ASIGNAR UNA CONSULTA COMO VALOR A LA VARIABLE FORMA 2
+select @nombre = ciudad from oficinas where oficina = 11
+print @nombre
+
+--Se ejecuta todo
+
+--crear trigger
+create trigger nombre_triger
+on tabla_ejemplo
+after insert
+as 
+begin
+--aca van las instrucciones
+end
