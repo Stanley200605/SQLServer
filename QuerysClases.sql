@@ -453,3 +453,49 @@ as
 begin
 --aca van las instrucciones
 end
+
+
+-- Clase 26/11/2024
+CREATE TRIGGER decrementa_stock
+ON Pedidos -- Tabla donde se genera el triggers
+	AFTER INSERT, UPDATE -- Significa que el trigger se ejecutará despué de insertar o actualizar
+	AS
+BEGIN
+	SET NOCOUNT ON; -- Controla los mensajes de error
+	-- Declaramos variables para aguardar los valores ahi
+	declare @prod varchar(10)
+	declare @fab varchar(3)
+	declare @cant int
+	declare @precio money
+	declare @cod int
+
+	-- Seleccionamos información de la tabla inserted
+	select @cod = codigo, @cant = i.cant, @prod = i.producto, @fab = i.fab 
+	from inserted i
+
+	select @precio = precio from productos
+	where idfab = @fab and idproducto = @prod
+
+	-- Actualizamos
+	update productos
+	set existencias = existencias - @cant
+	where idfab = @fab and idproducto = @prod
+
+	update pedidos set importe = @cant * @precio
+	where codigo = @cod
+END
+GO
+
+CREATE TRIGGER decrementa_stock2
+ON Pedidos -- Tabla donde se genera el triggers
+	AFTER INSERT, UPDATE -- Significa que el trigger se ejecutará despué de insertar o actualizar
+	AS
+BEGIN
+	SET NOCOUNT ON; -- Controla los mensajes de error
+	-- Actualizamos
+	UPDATE productos SET existencias = existencias - inserted.cant
+	FROM inserted INNER JOIN Productos ON
+	idfab = inserted.fab and idproducto = inserted.
+
+END
+GO
